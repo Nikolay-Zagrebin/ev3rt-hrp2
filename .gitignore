@@ -41,3 +41,6 @@ cfg/cfg/cfg
 
 # Exceptions
 !libusblib.a
+
+# Build files
+base-workspace/hrp2

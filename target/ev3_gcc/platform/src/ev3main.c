@@ -67,6 +67,9 @@ void ev3_main_task(intptr_t exinf) {
      * Initialize EV3RT console and open its SIO port.
      */
     initialize_console_dri();
+#if defined(PYBRICKS)
+	ev3rt_console_set_visibility(false);
+#endif  
     ercd = serial_opn_por(SIO_PORT_LCD);
     if (ercd < 0 && MERCD(ercd) != E_OBJ) {
         syslog(LOG_ERROR, "%s (%d) reported by `serial_opn_por'.",
@@ -118,6 +121,11 @@ void ev3_main_task(intptr_t exinf) {
 
     if (*ev3rt_low_battery_warning)
         sta_cyc(EV3_BATTERY_MONITOR_CYC);
+#if defined(PYBRICKS)
+	ev3rt_console_set_visibility(false);
+    bluetooth_qos_set_enable(true);
+	platform_pause_application(false);
+#endif
 }
 
 ER platform_register_driver(const ev3_driver_t *p_driver) {
