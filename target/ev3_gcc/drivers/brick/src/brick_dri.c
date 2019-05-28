@@ -13,9 +13,6 @@
 #include "platform.h"
 #include "brick_dri.h"
 
-#if defined(PYBRICKS)
-void stop_user_script();
-#endif
 /**
  * Global brick information (singleton & shared by all drivers)
  */
@@ -119,11 +116,6 @@ void brick_button_cyc(intptr_t unused) {
 	for (int i = 0; i < TNUM_BRICK_BUTTON; ++i) {
 		bool_t pressed = gpio_get_value(button_pin[i]);
 		if (button_pressed[i] && !pressed) { // Clicked
-#if defined(PYBRICKS)
-			if (i == BRICK_BUTTON_BACK) {
-				stop_user_script();
-			}
-#endif
 			if (i == BRICK_BUTTON_BACK && ignore_back_click_once)
 				ignore_back_click_once = false;
 			else

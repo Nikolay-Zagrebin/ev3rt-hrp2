@@ -67,9 +67,6 @@ void ev3_main_task(intptr_t exinf) {
      * Initialize EV3RT console and open its SIO port.
      */
     initialize_console_dri();
-#if defined(PYBRICKS)
-	ev3rt_console_set_visibility(false);
-#endif  
     ercd = serial_opn_por(SIO_PORT_LCD);
     if (ercd < 0 && MERCD(ercd) != E_OBJ) {
         syslog(LOG_ERROR, "%s (%d) reported by `serial_opn_por'.",
